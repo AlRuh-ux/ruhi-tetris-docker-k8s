@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-tetris
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-tetris
+  template:
+    metadata:
+      labels:
+        app: my-tetris
+    spec:
+      containers:
+        - name: my-tetris
+          image: my-tetris-game
+          ports:
+            - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-tetris
+spec:
+  type: NodePort
+  selector:
+    app: my-tetris
+  ports:
+    - port: 80
+      targetPort: 80
